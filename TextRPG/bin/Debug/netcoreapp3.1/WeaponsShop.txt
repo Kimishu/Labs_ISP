@@ -1,6 +1,0 @@
-@Number:1.@Name:Полуторный меч@Damage:15@CriticalDamage:17@Cost:50@End;
-@Number:2.@Name:Рапира@Damage:11@CriticalDamage:19@Cost:40@End;
-@Number:3.@Name:Алебарда@Damage:10@CriticalDamage:14@Cost:35End;
-@Number:4.@Name:Булава из драконьей стали@Damage:10@CriticalDamage:15@Cost:30@End;
-@Number:5.@Name:Кинжал из когтя Огненного Тигра@Damage:15@CriticalDamage:17@Cost:50@End;
-@Number:6.@Name:Мифриловая Сабля@Damage:20@CriticalDamage:23@Cost:70@End;

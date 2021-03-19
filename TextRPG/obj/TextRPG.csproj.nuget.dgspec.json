@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programma\\sharp\\textRPGnew\\TextRPG\\TextRPG.csproj": {}
+    "D:\\Programma\\sharp\\GitRepos\\TextRPG\\TextRPG.csproj": {}
   },
   "projects": {
-    "D:\\Programma\\sharp\\textRPGnew\\TextRPG\\TextRPG.csproj": {
+    "D:\\Programma\\sharp\\GitRepos\\TextRPG\\TextRPG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programma\\sharp\\textRPGnew\\TextRPG\\TextRPG.csproj",
+        "projectUniqueName": "D:\\Programma\\sharp\\GitRepos\\TextRPG\\TextRPG.csproj",
         "projectName": "TextRPG",
-        "projectPath": "D:\\Programma\\sharp\\textRPGnew\\TextRPG\\TextRPG.csproj",
+        "projectPath": "D:\\Programma\\sharp\\GitRepos\\TextRPG\\TextRPG.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\Programma\\sharp\\textRPGnew\\TextRPG\\obj\\",
+        "outputPath": "D:\\Programma\\sharp\\GitRepos\\TextRPG\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",

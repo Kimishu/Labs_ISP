@@ -10,6 +10,6 @@ namespace EnemyInfo
         public static int Damage;
         public static string Name;
         public static int Exp;
-        
+        public static int Money; 
     }
 }

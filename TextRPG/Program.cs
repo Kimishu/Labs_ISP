@@ -10,52 +10,75 @@ using System.Threading;
 
 namespace TextRPG
 {
-   
+
     class Program
     {
         static void Buy(int index)
         {
             Inventory bag = new Inventory();
-            if(index == 1)
+            if (index == 1)
             {
-                string[] BuyWeapon = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts","WeaponsShop.txt"), Encoding.UTF8);
-                for(int i=0; i < BuyWeapon.Length; i++)
+                string[] BuyWeapon = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "WeaponsShop.txt"), Encoding.UTF8);
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~");
+                for (int i = 0; i < BuyWeapon.Length; i++)
                 {
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~");
-                    Console.Write(StrCutter(BuyWeapon[i],"@Number:","@Name"));
+                    Console.Write(StrCutter(BuyWeapon[i], "@Number:", "@Name:"));
+                    Console.WriteLine(StrCutter(BuyWeapon[i], "@Name:", "@Damage:"));
                     Console.Write("Урон: ");
-                    Console.WriteLine(StrCutter(BuyWeapon[i], "@Name", "@Damage:"));
-                    Console.Write("Крит. урон: ");
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(StrCutter(BuyWeapon[i], "@Damage:", "@CriticalDamage:"));
+                    Console.ResetColor();
+                    Console.Write("Крит. урон: ");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine(StrCutter(BuyWeapon[i], "@CriticalDamage:", "@Cost:"));
+                    Console.ResetColor();
                     Console.Write("Стоимость: ");
                     Console.WriteLine(StrCutter(BuyWeapon[i], "@Cost:", "@End;"));
                     Console.WriteLine("~~~~~~~~~~~~~~~~~~");
                 }
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Выберите оружие для покупки");
+                Console.ResetColor();
                 string str = Console.ReadLine();
                 int WeaponID = Convert.ToInt32(str) - 1;
                 Console.ResetColor();
                 for (int i = 0; i < BuyWeapon.Length; i++)
                 {
-                    if (BuyWeapon[i].Contains(str))
+                    if (BuyWeapon[i].Contains(str) && WeaponID == Convert.ToInt32(StrCutter(BuyWeapon[i], "@Number:", ".@Name:"))-1) 
                     {
-                        if(Player.Money < Convert.ToInt32(StrCutter(BuyWeapon[i], "@Cost:", "@End;"))){
-                            bag.Add(i,1);
+                        if (Player.Money >= Convert.ToInt32(StrCutter(BuyWeapon[i], "@Cost:", "@End;")))
+                        {
+                            bag.Add(i, true);
+                            Player.Money -= Convert.ToInt32(StrCutter(BuyWeapon[i], "@Cost:", "@End;"));
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Покупка успешно осуществлена!");
+                            Console.ResetColor();
+                            Thread.Sleep(3000);
+                            Console.Clear();
+                            Shop();
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("У вас недостаточно средств!");
-                            Console.WriteLine("Ваши монеты: " + Player.Money);
+                            Console.ResetColor();
+                            Console.Write("Ваши монеты: ");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine(Player.Money);
+                            Console.ResetColor();
+                            Thread.Sleep(5000);
+                            Console.Clear();
+                            Shop();
                         }
                     }
                 }
             }
-            if(index == 2)
+            if (index == 2)
             {
 
             }
-            if(index == 3)
+            if (index == 3)
             {
 
             }
@@ -64,7 +87,7 @@ namespace TextRPG
         {
             Console.WriteLine("Добро пожаловать в мою лавку! Чего желаете?");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n\n\n1.Купить оружие\n2.Купить зелье\n3.Создать оружие");
+            Console.WriteLine("\n\n\n1.Купить оружие\n2.Купить зелье\n3.Создать оружие\n4.Вернуться");
             Console.ResetColor();
             switch (Console.ReadKey().Key)
             {
@@ -80,12 +103,20 @@ namespace TextRPG
                     Console.Clear();
                     Buy(3);
                     break;
+                case ConsoleKey.D4:
+                    Console.Clear();
+                    Actions();
+                    break;
+                default:
+                    Console.Clear();
+                    Shop();
+                    break;
             }
         }
         public static bool EnemyGeneration = false;
         public static void EnemyGen()
         {
-            List<string> Enemies = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts","Enemies.txt"), Encoding.UTF8).ToList();
+            List<string> Enemies = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "Enemies.txt"), Encoding.UTF8).ToList();
             Random RandEnemy = new Random();
             int EnemyID = RandEnemy.Next(0, Enemies.Count);
             Enemy.Name = StrCutter(Enemies[EnemyID], "@Name:", "@HP:");
@@ -93,55 +124,79 @@ namespace TextRPG
             Enemy.HP = Convert.ToInt32(StrCutter(Enemies[EnemyID], "@HP:", "@Damage:"));
             Enemy.MaxHP = Enemy.HP;
             Enemy.Mana = Convert.ToInt32(StrCutter(Enemies[EnemyID], "@Mana:", "@Exp:"));
-            Enemy.Exp = Convert.ToInt32(StrCutter(Enemies[EnemyID], "@Exp:", "@End;"));
+            Enemy.Exp = Convert.ToInt32(StrCutter(Enemies[EnemyID], "@Exp:", "@Money:"));
+            Enemy.Money = Convert.ToInt32(StrCutter(Enemies[EnemyID], "@Money:", "@End;"));
             EnemyGeneration = true;
         }
         public static string StrCutter(string str, string start, string end)
         {
             return str.Substring(str.IndexOf(start) + start.Length, str.IndexOf(end) - (str.IndexOf(start) + start.Length));
         }
-       public static string Finder(string str)
+        public static string Finder(string str)
         {
-            string[] FindWeapon1 = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts","Weapons.txt"), Encoding.UTF8);
-            string[] FindWeapon2 = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts", "WeaponsShop.txt"), Encoding.UTF8);
+            string[] FindWeapon1 = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "Weapons.txt"), Encoding.UTF8);
+            string[] FindWeapon2 = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "WeaponsShop.txt"), Encoding.UTF8);
             Random CritChance = new Random();
             int index = 0;
-            
-
+            bool checker = false;
             for (int i = 0; i < FindWeapon1.Length; i++)
             {
                 if (FindWeapon1[i].Contains(str))
                 {
-                     index = i;
-                      
+                    index = i;
+                    checker = true;
                 }
-                
+
             }
-            if(CritChance.Next(0,4)== 3)
+            if (checker)
             {
-                return StrCutter(FindWeapon1[index], "@CriticalDamage:", "@Durability:");
+                if (CritChance.Next(0, 4) == 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Crit!");
+                    Console.ResetColor();
+                    return StrCutter(FindWeapon1[index], "@CriticalDamage:", "@Durability:");
+                }
+                else
+                {
+                    return StrCutter(FindWeapon1[index], "@Damage:", "@CriticalDamage:");
+                }
             }
             else
             {
-                return StrCutter(FindWeapon1[index], "@Damage:", "@CriticalDamage:");
+                for (int i = 0; i < FindWeapon2.Length; i++)
+                {
+                    if (FindWeapon2[i].Contains(str))
+                    {
+                        index = i;
+                    }
+                }
+                if (CritChance.Next(0, 4) == 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Crit!");
+                    Console.ResetColor();
+                    return StrCutter(FindWeapon2[index], "@CriticalDamage:", "@Cost:");
+                }
+                else
+                {
+                    return StrCutter(FindWeapon2[index], "@Damage:", "@CriticalDamage:");
+                }
             }
         }
-
         static int ChooseWeapon()
         {
-            
-            List<string> Weapons = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts","Inventory.txt"), Encoding.UTF8).ToList();
+            List<string> Weapons = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "Inventory.txt"), Encoding.UTF8).ToList();
             int count = 0;
             for (int i = 0; i < Weapons.Count; i++)
             {
                 count++;
-                Console.WriteLine(count+". " + Weapons[i]);
-               
+                Console.WriteLine(count + ". " + Weapons[i]);
             }
-            Console.WriteLine("Кол-во предметов: "+ count +"\nВведите номер оружия, которым хотите атаковать: ");
-
+            Console.WriteLine("Кол-во предметов: " + count + "\nВведите номер оружия, которым хотите атаковать: ");
             string str = Console.ReadLine();
-            if(str == string.Empty)
+            int WeaponID;
+            if (!int.TryParse(str, out WeaponID))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Предмета с таким номером нет. Попробуйте ещё раз.");
@@ -150,8 +205,7 @@ namespace TextRPG
                 Console.Clear();
                 return ChooseWeapon();
             }
-            int WeaponID = Convert.ToInt32(str)-1;
-            if (WeaponID == count || WeaponID<0 ||WeaponID>count)
+            if (WeaponID < 0 || WeaponID > Weapons.Count)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Предмета с таким номером нет. Попробуйте ещё раз.");
@@ -160,7 +214,7 @@ namespace TextRPG
                 Console.Clear();
                 return ChooseWeapon();
             }
-            return WeaponID;
+            return WeaponID - 1;
         }
         static int ChooseSkill()
         {
@@ -173,7 +227,7 @@ namespace TextRPG
                 count++;
                 Console.Write(count + ". ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine(StrCutter(MagicSkills[i],"@Name:","@Damage:"));
+                Console.WriteLine(StrCutter(MagicSkills[i], "@Name:", "@Damage:"));
                 Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(StrCutter(MagicSkills[i], "@Damage:", "@ManaCost:"));
@@ -189,7 +243,7 @@ namespace TextRPG
             Console.WriteLine("Кол-во заклинаний: " + count + "\nВыберите заклинание, которым хотите атаковать: ");
             string str = Console.ReadLine();
             int SkillID;
-            if (!int.TryParse(str,out SkillID))
+            if (!int.TryParse(str, out SkillID))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Предмета с таким номером нет. Попробуйте ещё раз.");
@@ -198,7 +252,6 @@ namespace TextRPG
                 Console.Clear();
                 return ChooseSkill();
             }
-            
             if (SkillID == count || SkillID < 0 || SkillID > count)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -206,99 +259,186 @@ namespace TextRPG
                 Console.ResetColor();
                 Thread.Sleep(3000);
                 Console.Clear();
-                return SkillID;
+                return ChooseSkill();
             }
-            return SkillID;
+            return SkillID - 1;
         }
-        
         static void Fight()
         {
-            List<string> ChosenWeapon = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts","Inventory.txt"), Encoding.UTF8).ToList();
+            List<string> ChosenWeapon = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "Inventory.txt"), Encoding.UTF8).ToList();
+            List<string> ChosenSkill = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "MagicSkills.txt"), Encoding.UTF8).ToList();
+            Random EscapeChance = new Random();
             int damage = 0, count = 0;
-                Console.WriteLine("***Бой начинается!***");
+            Console.WriteLine("***Бой начинается!***");
             if (EnemyGeneration == false)
             {
                 EnemyGen();
                 EnemyGeneration = true;
             }
-                Console.WriteLine("В этом бою сошлись " + Player.Name + " и " + Enemy.Name);
-             
+            Console.Write("В этом бою сошлись ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(Player.Name);
+            Console.ResetColor();
+            Console.Write(" и ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(Enemy.Name);
+            Console.ResetColor();
             Console.ReadKey();
             Console.Clear();
-            for (; ;){
+            for (; ; )
+            {
                 if (Player.HP != 0)
                 {
-
                     Console.WriteLine("Сейчас ваша очередь. Выберите действие:\n1.Информация о противнике\n2.Атаковать оружием\n3.Атаковать магией\n4.Сбежать");
                     switch (Console.ReadKey().Key)
                     {
                         case ConsoleKey.D1:
                             Console.Clear();
                             EnemyInf();
-                        break;
+                            break;
                         case ConsoleKey.D2:
-                        Console.Clear();
-                        int WeaponID = ChooseWeapon();
-                        Console.Clear();
-                        Console.WriteLine("Вы выбрали " + ChosenWeapon[WeaponID] + " и атаковали им противника.");
-                        damage = Convert.ToInt32(Finder(ChosenWeapon[WeaponID]));
-                        Enemy.HP -= damage;
-                        Console.Write("Вы нанесли противнику ");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(damage);
-                        Console.ResetColor();
-                        Console.WriteLine(" урона");
-                        Console.Write("Текущее здоровье противника: ");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        if (Enemy.HP <= 0)
-                        {
-                            Enemy.HP = 0;
-                            Console.WriteLine(Enemy.HP);
-                        }
-                        else
-                        {
-                            Console.WriteLine(Enemy.HP);
-                        }
-                        Console.ResetColor();
+                            Console.Clear();
+                            int WeaponID = ChooseWeapon();
+                            Console.Clear();
+                            Console.WriteLine("Вы выбрали " + ChosenWeapon[WeaponID] + " и атаковали им противника.");
+                            damage = Convert.ToInt32(Finder(ChosenWeapon[WeaponID]));
+                            Enemy.HP -= damage;
+                            Console.Write("Вы нанесли противнику ");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(damage);
+                            Console.ResetColor();
+                            Console.WriteLine(" урона");
+                            Console.Write("Текущее здоровье противника: ");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Enemy.HP <= 0)
+                            {
+                                Enemy.HP = 0;
+                                Console.WriteLine(Enemy.HP);
+                            }
+                            else
+                            {
+                                Console.WriteLine(Enemy.HP);
+                            }
+                            Console.ResetColor();
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("***Нажмите любую кнопку для продолжения!***");
                             Console.ResetColor();
-                        Console.ReadKey();
-                        Console.Clear();
-                        if (Enemy.HP <= 0)
-                        {
+                            Console.ReadKey();
                             Console.Clear();
-                            Console.WriteLine("Противник " + Enemy.Name + " побеждён!");
-                            Console.WriteLine("Вы получили " + Enemy.Exp + " опыта");
-                            Player.CurrentExperience += Enemy.Exp;
-                            Player.CheckExp();
-                            Player.HP = Player.MaxHP;
-                            EnemyGeneration = false;
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Победа!");
-                            Console.ResetColor();
+                            if (Enemy.HP <= 0)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Противник " + Enemy.Name + " побеждён!");
+                                Console.WriteLine("Вы получили " + Enemy.Exp + " опыта");
+                                Console.WriteLine("Вы получили " + Enemy.Money + "монет(ы)");
+                                Player.Money += Enemy.Money;
+                                Player.CurrentExperience += Enemy.Exp;
+                                Player.CheckExp();
+                                Player.HP = Player.MaxHP;
+                                EnemyGeneration = false;
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Победа!");
+                                Console.ResetColor();
                                 Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы продолжить.");
                                 Console.ResetColor();
-                            Console.ReadKey();
+                                Console.ReadKey();
+                                break;
+                            }
                             break;
-                        }
-                        break;
-                      
                         case ConsoleKey.D3:
-                        Console.Clear();
-                        if (Player.Mana == -1)
-                        {
-                        Console.WriteLine("***Вы воин, а не маг! Используйте оружие!***");
-                        }
-                        else
-                        {
-                          ChooseSkill();
-                        }
-                        break;
+                            Console.Clear();
+                            if (Player.Mana == -1)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("***Вы воин, а не маг! Используйте оружие!***");
+                                Console.ResetColor();
+                                Thread.Sleep(3000);
+                                Console.Clear();
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                int SkillID = ChooseSkill();
+                                Console.Clear();
+                                if ((Player.Mana -= Convert.ToInt32(StrCutter(ChosenSkill[SkillID], "@ManaCost:", "@End;"))) > 0)
+                                {
+                                    Console.WriteLine("Вы выбрали заклинание " + StrCutter(ChosenSkill[SkillID], "@Name:", "@Damage:") + " и атаковали им противника.");
+                                    Player.Mana -= Convert.ToInt32(StrCutter(ChosenSkill[SkillID], "@ManaCost:", "@End;"));
+                                    damage = Convert.ToInt32(StrCutter(ChosenSkill[SkillID], "@Damage:", "@ManaCost:"));
+                                    Enemy.HP -= damage;
+                                    Console.Write("Вы нанесли противнику ");
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.Write(damage);
+                                    Console.ResetColor();
+                                    Console.WriteLine(" урона");
+                                    Console.Write("Текущее здоровье противника: ");
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    if (Enemy.HP <= 0)
+                                    {
+                                        Enemy.HP = 0;
+                                        Console.WriteLine(Enemy.HP);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine(Enemy.HP);
+                                    }
+                                    Console.ResetColor();
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.WriteLine("***Нажмите любую кнопку для продолжения!***");
+                                    Console.ResetColor();
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    if (Enemy.HP <= 0)
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Противник " + Enemy.Name + " побеждён!");
+                                        Console.WriteLine("Вы получили " + Enemy.Exp + " опыта");
+                                        Player.CurrentExperience += Enemy.Exp;
+                                        Player.CheckExp();
+                                        Player.HP = Player.MaxHP;
+                                        Player.Mana = Player.MaxMana;
+                                        EnemyGeneration = false;
+                                        Console.ForegroundColor = ConsoleColor.Green;
+                                        Console.WriteLine("Победа!");
+                                        Console.ResetColor();
+                                        Console.ForegroundColor = ConsoleColor.Yellow;
+                                        Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы продолжить.");
+                                        Console.ResetColor();
+                                        Console.ReadKey();
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("У вас недостаточно маны!");
+                                    Console.ResetColor();
+                                    Thread.Sleep(3000);
+                                    Console.Clear();
+                                    break;
+                                }
+                            }
+                            break;
+                        case ConsoleKey.D4:
+                            Console.Clear();
+                            if (EscapeChance.Next(0, 10) == 9)
+                            {
+                                Console.WriteLine("Вам удалось сбежать!");
+                                Thread.Sleep(3000);
+                                Console.Clear();
+                                Actions();
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Неудачная попытка.. Может, Вам ещё удастся уйти живым..");
+                                Console.ResetColor();
+                            }
+                            break;
                     }
                 }
-                if(Enemy.HP != 0)
+                if (Enemy.HP != 0)
                 {
                     Console.WriteLine("Время атаки противника!");
                     Player.HP -= Enemy.Damage;
@@ -318,7 +458,12 @@ namespace TextRPG
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Вы ПРОИГРАЛИ");
                         Console.ResetColor();
-                        break;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы продолжить.");
+                        Console.ResetColor();
+                        Console.ReadKey();
+                        Console.Clear();
+                        Main();
                     }
                     else
                     {
@@ -329,7 +474,7 @@ namespace TextRPG
                         Console.Clear();
                     }
                 }
-                if(Enemy.HP <= 0 || Player.HP <= 0)
+                if (Enemy.HP <= 0 || Player.HP <= 0)
                 {
                     break;
                 }
@@ -342,7 +487,7 @@ namespace TextRPG
             Console.WriteLine("Урон: " + Enemy.Damage);
             Console.Write("Здоровье: ");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(Enemy.HP+"/"+Enemy.MaxHP);
+            Console.WriteLine(Enemy.HP + "/" + Enemy.MaxHP);
             Console.ResetColor();
             Console.Write("Мана: ");
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -369,37 +514,73 @@ namespace TextRPG
                 Console.Clear();
                 Fight();
             }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("Вы решаете пройтись по лесу. Вы жаждете силы. Никто не посмеет стать у вас на пути: ни люди, ни монстры.");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы продолжить.");
+                Console.ResetColor();
+                Console.ReadKey();
+                Console.Clear();
+                Fight();
+            }
             Console.ReadKey();
             Console.Clear();
             Actions();
         }
         static void Inventory()
         {
-            string[] line = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts","Inventory.txt"), Encoding.UTF8);
-            string[] AllWeapons = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts","AllWeapons.txt"), Encoding.UTF8);
+            string[] line = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "Inventory.txt"), Encoding.UTF8);
+            string[] AllWeapons = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "AllWeapons.txt"), Encoding.UTF8);
             int count = 1;
             for (int i = 0; i < line.Length; i++)
             {
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine(count+". "+line[i]);
-                for (int j = 0; j < AllWeapons.Length; j++)
+                if (line[i] != string.Empty)
                 {
-                    if (AllWeapons[j].Contains(line[i]))
+                    Console.WriteLine(count + ". " + line[i]);
+                    for (int j = 0; j < AllWeapons.Length; j++)
                     {
-                        Console.Write("Урон: ");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(StrCutter(AllWeapons[j], "@Damage:", "@CriticalDamage:"));
-                        Console.ResetColor();
-                        Console.Write("Критический урон: ");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine(StrCutter(AllWeapons[j], "@CriticalDamage:", "@End;"));
-                        Console.ResetColor();
+                        if (AllWeapons[j].Contains(line[i]))
+                        {
+                            Console.Write("Урон: ");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine(StrCutter(AllWeapons[j], "@Damage:", "@CriticalDamage:"));
+                            Console.ResetColor();
+                            Console.Write("Критический урон: ");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine(StrCutter(AllWeapons[j], "@CriticalDamage:", "@End;"));
+                            Console.ResetColor();
+                        }
                     }
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    count++;
                 }
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
-                count++;
+                else
+                {
+                    Console.WriteLine(count + ". " + AllWeapons[i]);
+                    for (int j = 0; j < AllWeapons.Length; j++)
+                    {
+                        if (AllWeapons[j].Contains(AllWeapons[i]))
+                        {
+                            Console.Write("Урон: ");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine(StrCutter(AllWeapons[j], "@Damage:", "@CriticalDamage:"));
+                            Console.ResetColor();
+                            Console.Write("Критический урон: ");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine(StrCutter(AllWeapons[j], "@CriticalDamage:", "@End;"));
+                            Console.ResetColor();
+                        }
+                    }
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    count++;
+                }
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы продолжить.");
@@ -412,17 +593,18 @@ namespace TextRPG
         {
             Console.WriteLine("Информация о персонаже:");
             Console.WriteLine("Имя: " + Player.Name);
-            Console.WriteLine("Уровень: " + Player.Level+" ["+Player.CurrentExperience+"/"+Player.Level*2+"]");
+            Console.WriteLine("Уровень: " + Player.Level + " [" + Player.CurrentExperience + "/" + Player.Level * 2 + "]");
             Console.WriteLine("Раса: " + Player.Race);
             Console.WriteLine("Класс: " + Player.ClassPlayer);
             Console.Write("Здоровье: ");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(Player.HP+"/"+Player.MaxHP);
+            Console.WriteLine(Player.HP + "/" + Player.MaxHP);
             Console.ResetColor();
             Console.Write("Мана: ");
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(Player.Mana);
             Console.ResetColor();
+            Console.WriteLine("Монеты: "+Player.Money);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы вернуться.");
             Console.ResetColor();
@@ -443,7 +625,6 @@ namespace TextRPG
                     Console.Clear();
                     Inventory();
                     break;
-
                 case ConsoleKey.D3:
                     Console.Clear();
                     Lore();
@@ -460,7 +641,7 @@ namespace TextRPG
         }
         static void RaceChoose()
         {
-            List<string> weapon = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(),"Texts","Weapons.txt"), Encoding.UTF8).ToList();
+            List<string> weapon = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "Weapons.txt"), Encoding.UTF8).ToList();
             Random randweapon = new Random();
             int WeaponID = randweapon.Next(0, weapon.Count);
             Inventory bag = new Inventory();
@@ -474,42 +655,66 @@ namespace TextRPG
                     Console.Write("Слуга: ");
                     Console.ResetColor();
                     Console.WriteLine("Вы были героем, который сражался против армии нежити, чтобы спасти своё королевство!\nВаше тело было уничтожено мощным заклинанием, но судьба оказалась благосклонна.");
-                    Console.WriteLine("Введите ваше имя: ");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\n\n\nВведите ваше имя: ");
+                    Console.ResetColor();
                     Player.Name = Console.ReadLine();
-                    //Thread.Sleep(3000);
+                    if (Player.Name == string.Empty)
+                    {
+                        Player.Name = "Безымянный";
+                    }
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write("Слуга: ");
                     Console.ResetColor();
                     Console.WriteLine("Господин " + Player.Name + "! " + "Прошу прощения за мою грубость!");
-                    //Сделать фичу
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("Слуга: ");
-                    Console.ResetColor();
                     Console.WriteLine("Вы с ума сошли?! Вы же не до конца восстановились, вы и правда собираетесь идти на поле боя?");
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("\n1.Другого выбора нет.\n2.Отлежусь пару дней.");
                     Console.ResetColor();
-                    switch (Console.ReadKey().Key)
+                    for (bool flag = true; flag;)
                     {
-                        case ConsoleKey.D1:
-                            Console.Clear();
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write("Слуга: ");
-                            Console.ResetColor();
-                            Console.WriteLine("Что ж, с Вами бесполезно спорить! Я нашёл для Вас " + StrCutter(weapon[WeaponID], "@Name:", "@Damage:") + ". " + "Примите его и отправляйтесь в подземелье. Вам нужно восстановить свои навыки!");
-                            bag.Add(WeaponID, 0);
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы продолжить.");
-                            Console.ResetColor();
-                            Console.ReadKey();
-                            break;
-                        case ConsoleKey.D2:
-                            break;
-                        default:
-                            Console.Clear();
-
-                            break;
+                        switch (Console.ReadKey().Key)
+                        {
+                            case ConsoleKey.D1:
+                                Console.Clear();
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write("Слуга: ");
+                                Console.ResetColor();
+                                Console.Write("Что ж, с Вами бесполезно спорить! Я нашёл для Вас ");
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write(StrCutter(weapon[WeaponID], "@Name:", "@Damage:"));
+                                Console.ResetColor();
+                                Console.WriteLine(". " + "Примите его и отправляйтесь в подземелье. Вам нужно восстановить свои навыки!");
+                                bag.Add(WeaponID, false);
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы продолжить.");
+                                Console.ResetColor();
+                                Console.ReadKey();
+                                flag = false;
+                                break;
+                            case ConsoleKey.D2:
+                                Console.Clear();
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write("Слуга: ");
+                                Console.ResetColor();
+                                Console.WriteLine("Вот и хорошо! Отлежитесь, отдохните. Через пару дней мне обещали вернуть должок, сходите в таверну и купите себе достойное оружие.");
+                                Console.Write("Давать вам ");
+                              Console.ForegroundColor = ConsoleColor.Yellow;
+                              Console.Write(StrCutter(weapon[WeaponID], "@Name:", "@Damage:"));
+                                Console.ResetColor();
+                                Console.WriteLine(" я не решусь, вы же там помрёте!");        
+                                Console.WriteLine("\n\nЧерез пару дней ваш слуга дал вам 30 монет, и Вы отправились в таверну.");
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("\n\n\nНажмите любую кнопку, чтобы продолжить.");
+                                Console.ResetColor();
+                                Console.ReadKey();
+                                Console.Clear();
+                                Player.Money += 30;
+                                Shop();
+                                flag = false;
+                                break;
+                        }
                     }
                     Console.Clear();
                     Actions();
@@ -517,9 +722,16 @@ namespace TextRPG
                 case ConsoleKey.D2:
                     Console.Clear();
                     Player.Race = "Скелет";
-                    Console.WriteLine("В склепе было сыро. Вы чувствуете пустоту внутри себя, приподнимаясь. Взглянув на руки и своё тело Вам становится понятно, что вы вернулись к жизни. Замечательная новость!");
-                    Console.ReadLine();
-                    Console.Clear();
+                    Console.WriteLine("В склепе было сыро. Вы чувствуете пустоту внутри себя, приподнимаясь.\n Взглянув на руки и своё тело Вам становится понятно, что вы вернулись к жизни. Замечательная новость!");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\n\n\nВведите ваше имя: ");
+                    Console.ResetColor();
+                    Player.Name = Console.ReadLine();
+                    if (Player.Name == string.Empty)
+                    {
+                        Player.Name = "Безымянный";
+                    }
+                    Console.Clear();  
                     Actions();
                     break;
                 default:
@@ -532,6 +744,7 @@ namespace TextRPG
             Console.WindowWidth = 174;
             Console.WindowHeight = 54;
             Console.WriteLine("1.Начать игру\n2.Выход");
+            System.IO.File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "Inventory.txt"), string.Empty);
             Player.init();
             switch (Console.ReadKey(true).Key)
             {
@@ -544,7 +757,6 @@ namespace TextRPG
                     Console.ForegroundColor = ConsoleColor.DarkMagenta;
                     Console.WriteLine("Увидимся, авантюрист!");
                     Console.ResetColor();
-                    System.IO.File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(),"Texts","Inventory.txt"), string.Empty);
                     Console.ReadKey();
                     break;
                 default:
@@ -553,7 +765,6 @@ namespace TextRPG
                     break;
             }
         }
-
     }
 }
 

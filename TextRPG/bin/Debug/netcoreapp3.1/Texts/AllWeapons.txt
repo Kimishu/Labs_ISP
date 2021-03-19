@@ -6,6 +6,6 @@
 @Number:1.@Name:Полуторный меч@Damage:15@CriticalDamage:17@End;
 @Number:2.@Name:Рапира@Damage:11@CriticalDamage:19@End;
 @Number:3.@Name:Алебарда@Damage:10@CriticalDamage:14@End;
-@Number:4.@Name:Булава из драконьей стали@Damage:10@CriticalDamage:15@End;
-@Number:5.@Name:Кинжал из когтя Огненного Тигра@Damage:15@CriticalDamage:17@End;
+@Number:4.@Name:Сарисса из драконьей стали@Damage:10@CriticalDamage:15@End;
+@Number:5.@Name:Тесак из когтя Огненного Тигра@Damage:15@CriticalDamage:17@End;
 @Number:6.@Name:Мифриловая Сабля@Damage:20@CriticalDamage:23@End;

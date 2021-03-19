@@ -37,3 +37,16 @@ D:\Programma\sharp\textRPGnew\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.csproj.Cor
 D:\Programma\sharp\textRPGnew\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.dll
 D:\Programma\sharp\textRPGnew\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.pdb
 D:\Programma\sharp\textRPGnew\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.genruntimeconfig.cache
+D:\Programma\sharp\GitRepos\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.csprojAssemblyReference.cache
+D:\Programma\sharp\GitRepos\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.AssemblyInfoInputs.cache
+D:\Programma\sharp\GitRepos\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.AssemblyInfo.cs
+D:\Programma\sharp\GitRepos\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.csproj.CoreCompileInputs.cache
+D:\Programma\sharp\GitRepos\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.dll
+D:\Programma\sharp\GitRepos\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.pdb
+D:\Programma\sharp\GitRepos\TextRPG\bin\Debug\netcoreapp3.1\TextRPG.exe
+D:\Programma\sharp\GitRepos\TextRPG\bin\Debug\netcoreapp3.1\TextRPG.deps.json
+D:\Programma\sharp\GitRepos\TextRPG\bin\Debug\netcoreapp3.1\TextRPG.runtimeconfig.json
+D:\Programma\sharp\GitRepos\TextRPG\bin\Debug\netcoreapp3.1\TextRPG.runtimeconfig.dev.json
+D:\Programma\sharp\GitRepos\TextRPG\bin\Debug\netcoreapp3.1\TextRPG.dll
+D:\Programma\sharp\GitRepos\TextRPG\bin\Debug\netcoreapp3.1\TextRPG.pdb
+D:\Programma\sharp\GitRepos\TextRPG\obj\Debug\netcoreapp3.1\TextRPG.genruntimeconfig.cache

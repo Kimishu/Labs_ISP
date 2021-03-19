@@ -1,5 +1,5 @@
 @Name:Огненный шар@Damage:10@ManaCost:15@End;
 @Name:Ледяные копья@Damage:7@ManaCost:10@End;
-@Name:Терновое сердце@Damage:0@ManaCost:5@End;
+@Name:Терновая песнь@Damage:3@ManaCost:5@End;
 @Name:Воздушная стрела@Damage:10@ManaCost:15@End;
 @Name:Литосферный разлом@Damage:30@ManaCost:30@End;
