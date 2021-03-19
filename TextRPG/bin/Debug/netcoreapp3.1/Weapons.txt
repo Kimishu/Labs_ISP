@@ -1,0 +1,5 @@
+@Name:Ржавый меч@Damage:5@CriticalDamage:7@Durability:50@End;
+@Name:Лук@Damage:7@CriticalDamage:9@Durability:50@End;
+@Name:Железное Копьё@Damage:10@CriticalDamage:12@Durability:50@End;
+@Name:Булава@Damage:10@CriticalDamage:12@Durability:50@End;
+@Name:Кинжал@Damage:9@CriticalDamage:13@Durability:50@End;

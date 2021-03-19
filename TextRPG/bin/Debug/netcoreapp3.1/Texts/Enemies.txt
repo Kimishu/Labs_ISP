@@ -1,0 +1,5 @@
+@Name:Гоблин@HP:10@Damage:2@Mana:1@Exp:1@End; 
+@Name:Скелет@HP:20@Damage:3@Mana:5@Exp:2@End; 
+@Name:Орк@HP:25@Damage:4@Mana:7@Exp:3@End; 
+@Name:Ледяной Голем@HP:50@Damage:4@Mana:10@Exp:5@End; 
+@Name:Болотный упырь@HP:44@Damage:5@Mana:10@Exp:6@End; 
