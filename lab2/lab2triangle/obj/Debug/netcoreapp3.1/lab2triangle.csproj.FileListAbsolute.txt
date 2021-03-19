@@ -1,0 +1,13 @@
+D:\Programma\sharp\lab2triangle\bin\Debug\netcoreapp3.1\lab2triangle.exe
+D:\Programma\sharp\lab2triangle\bin\Debug\netcoreapp3.1\lab2triangle.deps.json
+D:\Programma\sharp\lab2triangle\bin\Debug\netcoreapp3.1\lab2triangle.runtimeconfig.json
+D:\Programma\sharp\lab2triangle\bin\Debug\netcoreapp3.1\lab2triangle.runtimeconfig.dev.json
+D:\Programma\sharp\lab2triangle\bin\Debug\netcoreapp3.1\lab2triangle.dll
+D:\Programma\sharp\lab2triangle\bin\Debug\netcoreapp3.1\lab2triangle.pdb
+D:\Programma\sharp\lab2triangle\obj\Debug\netcoreapp3.1\lab2triangle.csprojAssemblyReference.cache
+D:\Programma\sharp\lab2triangle\obj\Debug\netcoreapp3.1\lab2triangle.AssemblyInfoInputs.cache
+D:\Programma\sharp\lab2triangle\obj\Debug\netcoreapp3.1\lab2triangle.AssemblyInfo.cs
+D:\Programma\sharp\lab2triangle\obj\Debug\netcoreapp3.1\lab2triangle.csproj.CoreCompileInputs.cache
+D:\Programma\sharp\lab2triangle\obj\Debug\netcoreapp3.1\lab2triangle.dll
+D:\Programma\sharp\lab2triangle\obj\Debug\netcoreapp3.1\lab2triangle.pdb
+D:\Programma\sharp\lab2triangle\obj\Debug\netcoreapp3.1\lab2triangle.genruntimeconfig.cache

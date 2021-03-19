@@ -1,0 +1,13 @@
+D:\Programma\sharp\lab2\bin\Debug\netcoreapp3.1\lab2.exe
+D:\Programma\sharp\lab2\bin\Debug\netcoreapp3.1\lab2.deps.json
+D:\Programma\sharp\lab2\bin\Debug\netcoreapp3.1\lab2.runtimeconfig.json
+D:\Programma\sharp\lab2\bin\Debug\netcoreapp3.1\lab2.runtimeconfig.dev.json
+D:\Programma\sharp\lab2\bin\Debug\netcoreapp3.1\lab2.dll
+D:\Programma\sharp\lab2\bin\Debug\netcoreapp3.1\lab2.pdb
+D:\Programma\sharp\lab2\obj\Debug\netcoreapp3.1\lab2.csprojAssemblyReference.cache
+D:\Programma\sharp\lab2\obj\Debug\netcoreapp3.1\lab2.AssemblyInfoInputs.cache
+D:\Programma\sharp\lab2\obj\Debug\netcoreapp3.1\lab2.AssemblyInfo.cs
+D:\Programma\sharp\lab2\obj\Debug\netcoreapp3.1\lab2.csproj.CoreCompileInputs.cache
+D:\Programma\sharp\lab2\obj\Debug\netcoreapp3.1\lab2.dll
+D:\Programma\sharp\lab2\obj\Debug\netcoreapp3.1\lab2.pdb
+D:\Programma\sharp\lab2\obj\Debug\netcoreapp3.1\lab2.genruntimeconfig.cache
