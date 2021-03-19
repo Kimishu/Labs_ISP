@@ -330,7 +330,7 @@ namespace TextRPG
                                 Console.Clear();
                                 Console.WriteLine("Противник " + Enemy.Name + " побеждён!");
                                 Console.WriteLine("Вы получили " + Enemy.Exp + " опыта");
-                                Console.WriteLine("Вы получили " + Enemy.Money + "монет(ы)");
+                                Console.WriteLine("Вы получили " + Enemy.Money + " монет(ы)");
                                 Player.Money += Enemy.Money;
                                 Player.CurrentExperience += Enemy.Exp;
                                 Player.CheckExp();
@@ -361,7 +361,8 @@ namespace TextRPG
                                 Console.Clear();
                                 int SkillID = ChooseSkill();
                                 Console.Clear();
-                                if ((Player.Mana -= Convert.ToInt32(StrCutter(ChosenSkill[SkillID], "@ManaCost:", "@End;"))) > 0)
+                                int Mana = Player.Mana;
+                                if ((Mana -= Convert.ToInt32(StrCutter(ChosenSkill[SkillID], "@ManaCost:", "@End;"))) > 0 || (Mana -= Convert.ToInt32(StrCutter(ChosenSkill[SkillID], "@ManaCost:", "@End;"))) == 0)
                                 {
                                     Console.WriteLine("Вы выбрали заклинание " + StrCutter(ChosenSkill[SkillID], "@Name:", "@Damage:") + " и атаковали им противника.");
                                     Player.Mana -= Convert.ToInt32(StrCutter(ChosenSkill[SkillID], "@ManaCost:", "@End;"));
@@ -394,6 +395,8 @@ namespace TextRPG
                                         Console.Clear();
                                         Console.WriteLine("Противник " + Enemy.Name + " побеждён!");
                                         Console.WriteLine("Вы получили " + Enemy.Exp + " опыта");
+                                        Console.WriteLine("Вы получили " + Enemy.Money + " монет(ы)");
+                                        Player.Money += Enemy.Money;
                                         Player.CurrentExperience += Enemy.Exp;
                                         Player.CheckExp();
                                         Player.HP = Player.MaxHP;
@@ -535,10 +538,10 @@ namespace TextRPG
             string[] line = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "Inventory.txt"), Encoding.UTF8);
             string[] AllWeapons = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Texts", "AllWeapons.txt"), Encoding.UTF8);
             int count = 1;
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
             for (int i = 0; i < line.Length; i++)
             {
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
                 if (line[i] != string.Empty)
                 {
                     Console.WriteLine(count + ". " + line[i]);
@@ -674,7 +677,7 @@ namespace TextRPG
                     Console.ResetColor();
                     for (bool flag = true; flag;)
                     {
-                        switch (Console.ReadKey().Key)
+                        switch (Console.ReadKey(true).Key)
                         {
                             case ConsoleKey.D1:
                                 Console.Clear();
@@ -700,8 +703,8 @@ namespace TextRPG
                                 Console.ResetColor();
                                 Console.WriteLine("Вот и хорошо! Отлежитесь, отдохните. Через пару дней мне обещали вернуть должок, сходите в таверну и купите себе достойное оружие.");
                                 Console.Write("Давать вам ");
-                              Console.ForegroundColor = ConsoleColor.Yellow;
-                              Console.Write(StrCutter(weapon[WeaponID], "@Name:", "@Damage:"));
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write(StrCutter(weapon[WeaponID], "@Name:", "@Damage:"));
                                 Console.ResetColor();
                                 Console.WriteLine(" я не решусь, вы же там помрёте!");        
                                 Console.WriteLine("\n\nЧерез пару дней ваш слуга дал вам 30 монет, и Вы отправились в таверну.");
@@ -721,6 +724,7 @@ namespace TextRPG
                     break;
                 case ConsoleKey.D2:
                     Console.Clear();
+                  
                     Player.Race = "Скелет";
                     Console.WriteLine("В склепе было сыро. Вы чувствуете пустоту внутри себя, приподнимаясь.\n Взглянув на руки и своё тело Вам становится понятно, что вы вернулись к жизни. Замечательная новость!");
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -731,6 +735,7 @@ namespace TextRPG
                     {
                         Player.Name = "Безымянный";
                     }
+                    bag.Add(WeaponID,false);
                     Console.Clear();  
                     Actions();
                     break;
@@ -758,6 +763,7 @@ namespace TextRPG
                     Console.WriteLine("Увидимся, авантюрист!");
                     Console.ResetColor();
                     Console.ReadKey();
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.Clear();
