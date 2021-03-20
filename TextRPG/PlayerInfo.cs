@@ -12,7 +12,7 @@ namespace PlayerInfo
         public static int MaxMana;
         public static string Name;
         public static string ClassPlayer;
-        public static string Race { get; set; }
+        public static string Race;
         public static int Level = 1;
         public static int CurrentExperience = 0;
         public static int Money =0;
