@@ -1,0 +1,3 @@
+@Name:Abaddon@Atribute:Strength@End;
+@Name:Clinkz@Atribute:Agility@End;
+@Name:Invoker@Atribute:Intelligence@End;
