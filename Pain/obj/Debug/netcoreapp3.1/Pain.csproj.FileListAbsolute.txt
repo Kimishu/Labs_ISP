@@ -50,3 +50,16 @@ G:\smth\Current\Pain\obj\Debug\netcoreapp3.1\Pain.csproj.CoreCompileInputs.cache
 G:\smth\Current\Pain\obj\Debug\netcoreapp3.1\Pain.dll
 G:\smth\Current\Pain\obj\Debug\netcoreapp3.1\Pain.pdb
 G:\smth\Current\Pain\obj\Debug\netcoreapp3.1\Pain.genruntimeconfig.cache
+C:\Users\Ancowi\Desktop\Pain\bin\Debug\netcoreapp3.1\Pain.exe
+C:\Users\Ancowi\Desktop\Pain\bin\Debug\netcoreapp3.1\Pain.deps.json
+C:\Users\Ancowi\Desktop\Pain\bin\Debug\netcoreapp3.1\Pain.runtimeconfig.json
+C:\Users\Ancowi\Desktop\Pain\bin\Debug\netcoreapp3.1\Pain.runtimeconfig.dev.json
+C:\Users\Ancowi\Desktop\Pain\bin\Debug\netcoreapp3.1\Pain.dll
+C:\Users\Ancowi\Desktop\Pain\bin\Debug\netcoreapp3.1\Pain.pdb
+C:\Users\Ancowi\Desktop\Pain\obj\Debug\netcoreapp3.1\Pain.csprojAssemblyReference.cache
+C:\Users\Ancowi\Desktop\Pain\obj\Debug\netcoreapp3.1\Pain.AssemblyInfoInputs.cache
+C:\Users\Ancowi\Desktop\Pain\obj\Debug\netcoreapp3.1\Pain.AssemblyInfo.cs
+C:\Users\Ancowi\Desktop\Pain\obj\Debug\netcoreapp3.1\Pain.csproj.CoreCompileInputs.cache
+C:\Users\Ancowi\Desktop\Pain\obj\Debug\netcoreapp3.1\Pain.dll
+C:\Users\Ancowi\Desktop\Pain\obj\Debug\netcoreapp3.1\Pain.pdb
+C:\Users\Ancowi\Desktop\Pain\obj\Debug\netcoreapp3.1\Pain.genruntimeconfig.cache
