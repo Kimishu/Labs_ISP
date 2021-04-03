@@ -1,15 +1,17 @@
 ﻿using System;
 
-/// <summary>
-/// Возвращает индекс атрибут и его название в человеческом виде
-/// <para>1 - Сила</para>
-/// <para>2 - Ловкость</para>
-/// <para>3 - Интеллект</para>
-/// </summary>
+
 public class AttributeResolver
 {
     public string Name { get; }
     public int Index { get; }
+
+    /// <summary>
+    /// Возвращает индекс атрибут и его название в человеческом виде
+    /// <para>1 - Сила</para>
+    /// <para>2 - Ловкость</para>
+    /// <para>3 - Интеллект</para>
+    /// </summary>
     public AttributeResolver(int index)
     {
         switch (index)
@@ -58,7 +60,6 @@ public class HeroData
 public class HeroesData
 {
     public static HeroData[] data;
-
     public HeroesData()
     {
         data = new HeroData[]
@@ -152,34 +153,34 @@ public class Hero
         Console.Write(text);
         Console.ResetColor();
     }
-    public virtual void ChosenVariant(int Count)
+    public void ChosenVariant(HeroesData heroes, int Count)
     {
         Console.Clear();
         Console.WriteLine("Укажите нужный уровень:");
         switch (Count + 1)
         {
             case 1:
-                Abaddon hero1 = new Abaddon(HeroesData.data[0]);
+                Abaddon hero1 = new Abaddon(heroes[0]);
                 hero1.HeroInfo(Convert.ToInt32(Console.ReadLine()));
                 break;
             case 2:
-                Tidehunter hero2 = new Tidehunter(HeroesData.data[1]);
+                Tidehunter hero2 = new Tidehunter(heroes[1]);
                 hero2.HeroInfo(Convert.ToInt32(Console.ReadLine()));
                 break;
             case 3:
-                Meepo hero3 = new Meepo(HeroesData.data[2]);
+                Meepo hero3 = new Meepo(heroes[2]);
                 hero3.HeroInfo(Convert.ToInt32(Console.ReadLine()));
                 break;
             case 4:
-                Clinkz hero4 = new Clinkz(HeroesData.data[3]);
+                Clinkz hero4 = new Clinkz(heroes[3]);
                 hero4.HeroInfo(Convert.ToInt32(Console.ReadLine()));
                 break;
             case 5:
-                StormSpirit hero5 = new StormSpirit(HeroesData.data[4]);
+                StormSpirit hero5 = new StormSpirit(heroes[4]);
                 hero5.HeroInfo(Convert.ToInt32(Console.ReadLine()));
                 break;
             case 6:
-                Invoker hero6 = new Invoker(HeroesData.data[5]);
+                Invoker hero6 = new Invoker(heroes[5]);
                 hero6.HeroInfo(Convert.ToInt32(Console.ReadLine()));
                 break;
         }
@@ -191,10 +192,10 @@ abstract class HeroType : Hero
     public AttributeResolver MainAtribute;
     public int Level;
     public int Gold;
-    public double AtrStrength;
-    public double AtrAgility;
-    public double AtrIntelligence;
-    public double MainAtr;
+    public abstract double AtrStrength { get; }
+    public abstract double AtrAgility { get; }
+    public abstract double AtrIntelligence { get; }
+    public abstract double MainAtr { get; }
     public void HeroInfo(int NewLevel)
     {
         Console.Clear();
@@ -259,10 +260,10 @@ abstract class HeroType : Hero
 }
 class Abaddon : HeroType
 {
-    public new double AtrStrength = 3;
-    public new double AtrAgility = 1.5;
-    public new double AtrIntelligence = 2;
-    public new double MainAtr = 3;
+    public override double AtrStrength => 3;
+    public override double AtrAgility => 1.5;
+    public override double AtrIntelligence => 2;
+    public override double MainAtr => 3;
 
 
     public Abaddon(HeroData data)
@@ -283,10 +284,10 @@ class Abaddon : HeroType
 }
 class Tidehunter : HeroType
 {
-    public new double AtrStrength = 3.5;
-    public new double AtrAgility = 1.5;
-    public new double AtrIntelligence = 1.7;
-    public new double MainAtr = 3.5;
+    public override double AtrStrength => 3.5;
+    public override double AtrAgility => 1.5;
+    public override double AtrIntelligence => 1.7;
+    public override double MainAtr => 3.5;
     public Tidehunter(HeroData data)
     {
         Gold = data.Gold;
@@ -305,10 +306,10 @@ class Tidehunter : HeroType
 }
 class Meepo : HeroType
 {
-    public new double AtrStrength = 1.8;
-    public new double AtrAgility = 1.8;
-    public new double AtrIntelligence = 1.6;
-    public new double MainAtr = 1.8;
+    public override double AtrStrength => 1.8;
+    public override double AtrAgility => 1.8;
+    public override double AtrIntelligence => 1.6;
+    public override double MainAtr => 1.8;
     public Meepo(HeroData data)
     {
         Gold = data.Gold;
@@ -327,10 +328,10 @@ class Meepo : HeroType
 }
 class Clinkz : HeroType
 {
-    public new double AtrStrength = 2.2;
-    public new double AtrAgility = 2.7;
-    public new double AtrIntelligence = 2.2;
-    public new double MainAtr = 2.7;
+    public override double AtrStrength => 2.2;
+    public override double AtrAgility => 2.7;
+    public override double AtrIntelligence => 2.2;
+    public override double MainAtr => 2.7;
     public Clinkz(HeroData data)
     {
         Gold = data.Gold;
@@ -349,10 +350,10 @@ class Clinkz : HeroType
 }
 class StormSpirit : HeroType
 {
-    public new double AtrStrength = 2;
-    public new double AtrAgility = 1.7;
-    public new double AtrIntelligence = 3.9;
-    public new double MainAtr = 3.9;
+    public override double AtrStrength => 2;
+    public override double AtrAgility => 1.7;
+    public override double AtrIntelligence => 3.9;
+    public override double MainAtr => 3.9;
     public StormSpirit(HeroData data)
     {
         Gold = data.Gold;
@@ -371,10 +372,10 @@ class StormSpirit : HeroType
 }
 class Invoker : HeroType
 {
-    public new double AtrStrength = 2.4;
-    public new double AtrAgility = 1.9;
-    public new double AtrIntelligence = 4.6;
-    public new double MainAtr = 4.6;
+    public override double AtrStrength => 2.4;
+    public override double AtrAgility => 1.9;
+    public override double AtrIntelligence => 4.6;
+    public override double MainAtr => 4.6;
     public Invoker(HeroData data)
     {
         Gold = data.Gold;
@@ -397,7 +398,7 @@ namespace Lab3
     {
         static void Main()
         {
-            _ = new HeroesData(); // init
+            HeroesData heroes = new HeroesData(); // init
             int Count = 0;
             Hero hero = new Hero();
             Console.WriteLine("Выберите героя: ");
@@ -436,7 +437,7 @@ namespace Lab3
                         break;
                     case ConsoleKey.Enter:
                         Console.Clear();
-                        hero.ChosenVariant(Count);
+                        hero.ChosenVariant(heroes, Count);
                         Main();
                         break;
                 }
