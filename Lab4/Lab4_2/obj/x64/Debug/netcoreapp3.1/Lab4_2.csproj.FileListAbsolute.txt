@@ -1,0 +1,13 @@
+D:\Programma\sharp\Lab4_2\bin\x64\Debug\netcoreapp3.1\Lab4_2.exe
+D:\Programma\sharp\Lab4_2\bin\x64\Debug\netcoreapp3.1\Lab4_2.deps.json
+D:\Programma\sharp\Lab4_2\bin\x64\Debug\netcoreapp3.1\Lab4_2.runtimeconfig.json
+D:\Programma\sharp\Lab4_2\bin\x64\Debug\netcoreapp3.1\Lab4_2.runtimeconfig.dev.json
+D:\Programma\sharp\Lab4_2\bin\x64\Debug\netcoreapp3.1\Lab4_2.dll
+D:\Programma\sharp\Lab4_2\bin\x64\Debug\netcoreapp3.1\Lab4_2.pdb
+D:\Programma\sharp\Lab4_2\obj\x64\Debug\netcoreapp3.1\Lab4_2.AssemblyInfoInputs.cache
+D:\Programma\sharp\Lab4_2\obj\x64\Debug\netcoreapp3.1\Lab4_2.AssemblyInfo.cs
+D:\Programma\sharp\Lab4_2\obj\x64\Debug\netcoreapp3.1\Lab4_2.csproj.CoreCompileInputs.cache
+D:\Programma\sharp\Lab4_2\obj\x64\Debug\netcoreapp3.1\Lab4_2.dll
+D:\Programma\sharp\Lab4_2\obj\x64\Debug\netcoreapp3.1\Lab4_2.pdb
+D:\Programma\sharp\Lab4_2\obj\x64\Debug\netcoreapp3.1\Lab4_2.genruntimeconfig.cache
+D:\Programma\sharp\Lab4_2\obj\x64\Debug\netcoreapp3.1\Lab4_2.csprojAssemblyReference.cache
