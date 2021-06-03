@@ -1,0 +1,13 @@
+D:\Programma\sharp\Lab7\bin\Debug\netcoreapp3.1\Lab7.exe
+D:\Programma\sharp\Lab7\bin\Debug\netcoreapp3.1\Lab7.deps.json
+D:\Programma\sharp\Lab7\bin\Debug\netcoreapp3.1\Lab7.runtimeconfig.json
+D:\Programma\sharp\Lab7\bin\Debug\netcoreapp3.1\Lab7.runtimeconfig.dev.json
+D:\Programma\sharp\Lab7\bin\Debug\netcoreapp3.1\Lab7.dll
+D:\Programma\sharp\Lab7\bin\Debug\netcoreapp3.1\Lab7.pdb
+D:\Programma\sharp\Lab7\obj\Debug\netcoreapp3.1\Lab7.csprojAssemblyReference.cache
+D:\Programma\sharp\Lab7\obj\Debug\netcoreapp3.1\Lab7.AssemblyInfoInputs.cache
+D:\Programma\sharp\Lab7\obj\Debug\netcoreapp3.1\Lab7.AssemblyInfo.cs
+D:\Programma\sharp\Lab7\obj\Debug\netcoreapp3.1\Lab7.csproj.CoreCompileInputs.cache
+D:\Programma\sharp\Lab7\obj\Debug\netcoreapp3.1\Lab7.dll
+D:\Programma\sharp\Lab7\obj\Debug\netcoreapp3.1\Lab7.pdb
+D:\Programma\sharp\Lab7\obj\Debug\netcoreapp3.1\Lab7.genruntimeconfig.cache
